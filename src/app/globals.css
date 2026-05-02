@@ -1,26 +1,189 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    font-family: 'Be Vietnam Pro', 'Inter', sans-serif;
+    color: #1C1C1C;
+    background-color: #FFFFFF;
+    line-height: 1.6;
+  }
+
+  ::selection {
+    background-color: #D1FAE5;
+    color: #1A5C38;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f0fbf5;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #27AE60;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #1A5C38;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .container-custom {
+    @apply max-w-container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white px-6 py-3 rounded-lg font-semibold 
+           transition-all duration-300 hover:bg-primary-light hover:shadow-lg 
+           hover:shadow-primary/20 hover:-translate-y-0.5
+           active:translate-y-0 active:shadow-md
+           disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-primary border-2 border-primary px-6 py-3 rounded-lg font-semibold 
+           transition-all duration-300 hover:bg-primary hover:text-white
+           active:scale-95;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent text-primary px-6 py-3 rounded-lg font-semibold 
+           transition-all duration-300 hover:bg-primary-50
+           active:scale-95;
+  }
+
+  .card {
+    @apply bg-white rounded-xl border border-gray-100 overflow-hidden
+           transition-all duration-300 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold;
+  }
+
+  .badge-new {
+    @apply badge bg-blue-100 text-blue-700;
+  }
+
+  .badge-sale {
+    @apply badge bg-red-100 text-red-700;
+  }
+
+  .badge-hot {
+    @apply badge bg-orange-100 text-orange-700;
+  }
+
+  .badge-soldout {
+    @apply badge bg-gray-100 text-gray-600;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-lg border border-gray-200 
+           transition-all duration-200 
+           focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20
+           placeholder:text-gray-400;
+  }
+
+  .input-error {
+    @apply border-error focus:border-error focus:ring-error/20;
+  }
+
+  .section-title {
+    @apply text-h2 text-primary font-bold relative inline-block;
+  }
+
+  .section-title::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-12 h-1 bg-accent rounded-full;
+    transform: translateY(8px);
+  }
+
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-lg;
+  }
+
+  /* Skeleton loading */
+  .skeleton {
+    @apply bg-gray-200 rounded animate-pulse;
+  }
+
+  /* Toast animations */
+  .toast-enter {
+    animation: toastEnter 0.4s cubic-bezier(0.21, 1.02, 0.73, 1) forwards;
+  }
+
+  .toast-exit {
+    animation: toastExit 0.3s ease-in forwards;
+  }
+}
+
+@keyframes toastEnter {
+  0% {
+    transform: translateY(-20px) scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes toastExit {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-20px) scale(0.95);
+    opacity: 0;
+  }
+}
+
+/* Product image hover zoom */
+.product-image-zoom {
+  @apply overflow-hidden;
+}
+
+.product-image-zoom img {
+  @apply transition-transform duration-500;
+}
+
+.product-image-zoom:hover img {
+  transform: scale(1.08);
+}
+
+/* Hero gradient overlay */
+.hero-gradient {
+  background: linear-gradient(135deg, rgba(26, 92, 56, 0.9) 0%, rgba(39, 174, 96, 0.7) 100%);
+}
+
+/* Price styling */
+.price-original {
+  @apply text-muted line-through text-sm;
+}
+
+.price-sale {
+  @apply text-red-600 font-bold text-lg;
+}
+
+.price-normal {
+  @apply text-primary font-bold text-lg;
 }

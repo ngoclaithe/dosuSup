@@ -1,0 +1,150 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────────────────────
+// Sản phẩm
+// ─────────────────────────────────────────────
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  name      String
+  slug      String    @unique
+  image     String?
+  products  Product[]
+  createdAt DateTime  @default(now())
+}
+
+model Product {
+  id           Int      @id @default(autoincrement())
+  name         String
+  slug         String   @unique
+  categoryId   Int
+  category     Category @relation(fields: [categoryId], references: [id])
+  description  String?  @db.Text
+  ingredients  String?  @db.Text
+  usage        String?  @db.Text
+  benefits     String?  @db.Text
+  warning      String?  @db.Text
+  price        Int
+  salePrice    Int?
+  stock        Int      @default(0)
+  unit         String   @default("hộp")
+  brand        String?
+  images       String[]
+  isFeatured   Boolean  @default(false)
+  isNew        Boolean  @default(false)
+  isBestSeller Boolean  @default(false)
+  isDeleted    Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// ─────────────────────────────────────────────
+// Đơn hàng
+// ─────────────────────────────────────────────
+
+enum PaymentMethod {
+  COD
+  BANK_TRANSFER
+}
+
+enum OrderStatus {
+  PENDING_PAYMENT
+  PENDING_CONFIRM
+  PAID
+  PACKING
+  SHIPPING
+  DONE
+  CANCELLED
+}
+
+model Order {
+  id                 Int           @id @default(autoincrement())
+  orderCode          String        @unique
+  customerName       String
+  customerEmail      String
+  customerPhone      String
+  address            String
+  province           String
+  district           String
+  ward               String
+  note               String?
+  items              Json
+  totalAmount        Int
+  paymentMethod      PaymentMethod
+  status             OrderStatus   @default(PENDING_PAYMENT)
+  sepayTransactionId String?
+  paidAt             DateTime?
+  statusHistory      OrderHistory[]
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+}
+
+model OrderHistory {
+  id        Int         @id @default(autoincrement())
+  orderId   Int
+  order     Order       @relation(fields: [orderId], references: [id])
+  status    OrderStatus
+  note      String?
+  createdAt DateTime    @default(now())
+}
+
+// ─────────────────────────────────────────────
+// Blog
+// ─────────────────────────────────────────────
+
+model BlogPost {
+  id              Int      @id @default(autoincrement())
+  title           String
+  slug            String   @unique
+  category        String
+  summary         String   @db.Text
+  content         String   @db.Text
+  thumbnail       String
+  metaTitle       String?
+  metaDescription String?
+  published       Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// ─────────────────────────────────────────────
+// Admin
+// ─────────────────────────────────────────────
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+}
+
+// ─────────────────────────────────────────────
+// Liên hệ
+// ─────────────────────────────────────────────
+
+model Contact {
+  id        Int      @id @default(autoincrement())
+  fullName  String
+  email     String
+  phone     String?
+  message   String   @db.Text
+  createdAt DateTime @default(now())
+}
+
+// ─────────────────────────────────────────────
+// Site Settings (Banner, Config)
+// ─────────────────────────────────────────────
+
+model SiteSetting {
+  id    Int    @id @default(autoincrement())
+  key   String @unique
+  value String @db.Text
+}
