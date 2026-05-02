@@ -56,8 +56,8 @@ export interface ProductType {
   isNew: boolean
   isBestSeller: boolean
   isDeleted: boolean
-  createdAt: string
-  updatedAt: string
+  createdAt: Date | string
+  updatedAt: Date | string
 }
 
 export interface CategoryType {
@@ -84,17 +84,17 @@ export interface OrderType {
   paymentMethod: PaymentMethodType
   status: OrderStatusType
   sepayTransactionId?: string | null
-  paidAt?: string | null
+  paidAt?: Date | string | null
   statusHistory?: OrderHistoryType[]
-  createdAt: string
-  updatedAt: string
+  createdAt: Date | string
+  updatedAt: Date | string
 }
 
 export interface OrderHistoryType {
   id: number
   status: OrderStatusType
   note?: string | null
-  createdAt: string
+  createdAt: Date | string
 }
 
 export interface BlogPostType {
@@ -108,8 +108,8 @@ export interface BlogPostType {
   metaTitle?: string | null
   metaDescription?: string | null
   published: boolean
-  createdAt: string
-  updatedAt: string
+  createdAt: Date | string
+  updatedAt: Date | string
 }
 
 export interface CheckoutFormData {
