@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const slides = [
   {
@@ -8,7 +9,7 @@ const slides = [
     subtitle: 'Thực phẩm chức năng chính hãng, nhập khẩu từ các thương hiệu uy tín hàng đầu thế giới.',
     cta: 'Mua ngay',
     ctaLink: '/san-pham',
-    gradient: 'from-primary via-primary-dark to-[#0a2e1a]',
+    image: '/banner-1.png',
     accent: '🌿',
   },
   {
@@ -16,7 +17,7 @@ const slides = [
     subtitle: 'Chương trình khuyến mãi đặc biệt dành cho khách hàng mới. Giao hàng nhanh toàn quốc.',
     cta: 'Xem ưu đãi',
     ctaLink: '/san-pham',
-    gradient: 'from-[#0a4a2e] via-primary to-accent',
+    image: '/banner-2.png',
     accent: '💊',
   },
   {
@@ -24,7 +25,7 @@ const slides = [
     subtitle: 'Bổ sung dưỡng chất thiết yếu giúp da sáng mịn, tóc chắc khỏe từ bên trong.',
     cta: 'Khám phá',
     ctaLink: '/san-pham?category=collagen',
-    gradient: 'from-emerald-800 via-primary to-teal-700',
+    image: '/banner-3.png',
     accent: '✨',
   },
 ]
@@ -59,17 +60,23 @@ export default function HeroSection() {
   return (
     <section className="relative overflow-hidden">
       <div
-        className={`bg-gradient-to-br ${slide.gradient} transition-all duration-700 ease-in-out`}
+        className={`relative transition-all duration-700 ease-in-out min-h-[400px] md:min-h-[500px] lg:min-h-[550px] flex items-center py-12 md:py-20`}
       >
-        {/* Background pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-white rounded-full blur-3xl"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-white rounded-full blur-[100px]"></div>
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image 
+            src={slide.image} 
+            alt={slide.title} 
+            fill 
+            className="object-cover object-center"
+            priority 
+          />
+          {/* Dark Overlay for better text readability */}
+          <div className="absolute inset-0 bg-black/60"></div>
         </div>
 
-        <div className="container-custom relative z-10">
-          <div className="flex items-center min-h-[400px] md:min-h-[500px] lg:min-h-[550px] py-12 md:py-20">
+        <div className="container-custom relative z-10 w-full">
+          <div className="flex items-center">
             <div
               className={`max-w-2xl transition-all duration-500 ${
                 isAnimating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'
