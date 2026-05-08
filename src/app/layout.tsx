@@ -12,15 +12,15 @@ const beVietnamPro = Be_Vietnam_Pro({
 
 export const metadata: Metadata = {
   title: {
-    default: 'DosuSupplements — Thực phẩm chức năng chính hãng',
-    template: '%s | DosuSupplements',
+    default: 'DOSU Supplement — Thực phẩm chức năng chính hãng',
+    template: '%s | DOSU Supplement',
   },
   description: 'Cung cấp thực phẩm chức năng chính hãng, nhập khẩu chất lượng cao. Vitamin, Collagen, hỗ trợ sức khỏe. Giao hàng toàn quốc.',
-  keywords: ['thực phẩm chức năng', 'vitamin', 'collagen', 'sức khỏe', 'DosuSupplements'],
+  keywords: ['thực phẩm chức năng', 'vitamin', 'collagen', 'sức khỏe', 'DOSU Supplement'],
   openGraph: {
     type: 'website',
     locale: 'vi_VN',
-    siteName: 'DosuSupplements',
+    siteName: 'DOSU Supplement',
   },
 }
 

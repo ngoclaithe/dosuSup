@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useCartStore } from '@/store/cart'
 
@@ -48,12 +49,12 @@ export default function Header() {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-              <span className="text-white font-bold text-lg">D</span>
+            <div className="relative w-9 h-9 md:w-10 md:h-10 transition-transform duration-300 group-hover:scale-110">
+              <Image src="/logo.png" alt="DOSU Supplement Logo" fill className="object-contain" />
             </div>
             <div className="flex flex-col">
-              <span className="text-base md:text-lg font-bold text-primary leading-tight">
-                DosuSupplements
+              <span className="text-base md:text-lg font-bold text-primary leading-tight uppercase">
+                DOSU Supplement
               </span>
               <span className="text-[10px] text-muted leading-tight hidden sm:block">
                 Thực phẩm chức năng chính hãng
